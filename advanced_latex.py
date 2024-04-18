@@ -57,7 +57,7 @@ class OverleafHate(Slide):
         self.clear()
 
         timeout_error = ImageMobject(
-            "assets/images/overleaf_timeout_error.png")
+            "assets/images/overleaf_timeout_error.png").scale(1.5)
         self.play(FadeIn(timeout_error))
         self.next_slide()
 
@@ -136,6 +136,7 @@ using the Terminal:""").scale(0.5).next_to(
         ).scale(0.5).align_to(LEFT)
         steps.arrange(DOWN, center=False, aligned_edge=LEFT)
         self.play(Write(steps.shift(2 * LEFT)))
+        self.next_slide()
 
 
 def MakeTexCode(file_name, font_size=20):
@@ -152,9 +153,13 @@ def MakeTexCode(file_name, font_size=20):
 
 class ReferenceSectionsAndChaptersIncorrectly(Slide):
     def construct(self):
-        topic = Text("Reference sections and chapters by hand.").scale(0.7).to_corner(
-            UP + LEFT)
-        self.play(Create(topic))
+        title = Text("How do we reference information?")
+        self.play(Write(title))
+        self.next_slide()
+
+        self.play(Transform(title, Text("Reference sections and chapters by hand.").scale(0.7).to_corner(
+            UP + LEFT)))
+        self.next_slide()
 
         filename_before = "assets/tex/cross-ref-sections-by-hand-before-change.tex"
         code_before = MakeTexCode(filename_before).scale(0.7).to_edge(LEFT)
@@ -263,19 +268,27 @@ class ReferenceEquations(Slide):
 
 class IntroductionToTikz(Slide):
     def construct(self):
-
-        title = Text("Introduction to TikZ")
-        self.play(Create(title))
+        title = Text("How do we add grapics to documents?")
+        self.play(Write(title))
         self.next_slide()
 
-        self.play(title.animate.to_corner(UP + LEFT))
+        include_graphics = Text("\\includegraphics")
+        self.play(ReplacementTransform(title, include_graphics))
+        self.next_slide()
+
+        tikz_intro = Text("Introduction to TikZ package.")
+        self.play(FadeOut(include_graphics, shift=LEFT), Create(tikz_intro))
+        self.next_slide()
+
+        self.play(tikz_intro.animate.to_corner(UP + LEFT))
         self.next_slide()
 
         what_is_tikz = Text("What is TikZ?").scale(0.8)
         self.play(Create(what_is_tikz))
         self.next_slide()
 
-        self.play(what_is_tikz.animate.next_to(title, DOWN).shift(1.4 * LEFT))
+        self.play(what_is_tikz.animate.to_edge(LEFT))
+        self.play(what_is_tikz.animate.shift(2.5 * UP))
         self.next_slide()
         answers = VGroup(
             Text(
@@ -290,12 +303,11 @@ will teach you almost all you should know about TikZ.""")
         self.play(Create(answers.next_to(what_is_tikz, DOWN).shift(4 * RIGHT)))
         self.next_slide()
 
-        why_use_tikz = Text("Why use TikZ?").next_to(
+        why_use_tikz = Text("Why one should use TikZ?").next_to(
             answers, DOWN * 2 + LEFT * 2).scale(0.8)
         self.play(Create(why_use_tikz))
 
-        self.play(why_use_tikz.animate.next_to(
-            answers, DOWN).shift(4 * LEFT))
+        self.play(why_use_tikz.animate.to_edge(LEFT))
         self.next_slide()
 
         answers = VGroup(
@@ -307,7 +319,7 @@ just as you “program” your document when you use LaTeX."""),
 provides precise positioning, allows the use of macros, etc, etc.""")
         ).scale(0.6).align_to(LEFT)
         answers.arrange(DOWN, center=False, aligned_edge=LEFT)
-        self.play(Create(answers.next_to(why_use_tikz, DOWN).shift(5 * RIGHT)))
+        self.play(Create(answers.to_edge(LEFT).shift(1.5 * DOWN)))
 
         self.next_slide()
         self.clear()
@@ -333,37 +345,37 @@ class EuclidsElements(Slide):
         code1 = MakeTexCode(
             "assets/tex/tikz-euclid-line.tex").scale(0.75).to_corner(UP + LEFT)
         obj1 = ImageMobject(
-            "assets/images/tikz-euclid-line.png").shift(2 * (DOWN + RIGHT))
+            "assets/images/tikz-euclid-line.png")
         self.play(Create(code1))
         self.next_slide()
-        self.play(FadeIn(obj1))
+        self.play(FadeIn(obj1.to_edge(RIGHT)))
         self.next_slide()
 
         code2 = MakeTexCode(
             "assets/tex/tikz-euclid-one-circle.tex").scale(0.75).to_corner(UP + LEFT)
         obj2 = ImageMobject(
-            "assets/images/tikz-euclid-one-circle.png").scale(0.6).shift(2 * (DOWN + RIGHT))
+            "assets/images/tikz-euclid-one-circle.png").scale(0.6)
         self.play(FadeOut(obj1), ReplacementTransform(code1, code2))
         self.next_slide()
-        self.play(FadeIn(obj2))
+        self.play(FadeIn(obj2.to_edge(RIGHT)))
         self.next_slide()
 
         code3 = MakeTexCode(
             "assets/tex/tikz-euclid-two-circles.tex").scale(0.75).to_corner(UP + LEFT)
         obj3 = ImageMobject(
-            "assets/images/tikz-euclid-two-circles.png").scale(0.6).shift(2 * (DOWN + RIGHT))
+            "assets/images/tikz-euclid-two-circles.png").scale(0.6)
         self.play(FadeOut(obj2), ReplacementTransform(code2, code3))
         self.next_slide()
-        self.play(FadeIn(obj3))
+        self.play(FadeIn(obj3.to_edge(RIGHT)))
         self.next_slide()
 
         code4 = MakeTexCode(
             "assets/tex/tikz-euclid-intersection.tex").scale(0.75).to_corner(UP + LEFT)
         obj4 = ImageMobject(
-            "assets/images/tikz-euclid-intersection.png").scale(0.6).shift(2 * (DOWN + RIGHT))
+            "assets/images/tikz-euclid-intersection.png").scale(0.6)
         self.play(FadeOut(obj3), ReplacementTransform(code3, code4))
         self.next_slide()
-        self.play(FadeIn(obj4))
+        self.play(FadeIn(obj4.to_edge(RIGHT)))
         self.next_slide()
         self.clear()
 
@@ -422,17 +434,27 @@ class ChebyshevPolynomials(Slide):
 
         self.play(refined_trigo.animate.next_to(title, DOWN))
 
-        code = MakeTexCode("assets/tex/chebyshev-trigo.tex").scale(0.9)
-        self.play(Create(code.to_edge(LEFT)))
+        code1 = MakeTexCode("assets/tex/chebyshev-trigo.tex").scale(0.9)
+        self.play(Create(code1.to_edge(LEFT)))
         self.next_slide()
 
-        pic = ImageMobject("assets/images/chebyshev-trigo.png").scale(0.6)
-        self.play(FadeIn(pic.next_to(code, RIGHT)))
+        pic1 = ImageMobject("assets/images/chebyshev-trigo.png").scale(0.6)
+        self.play(FadeIn(pic1.next_to(code1, RIGHT)))
         self.next_slide()
 
-        self.remove(code)
+        code2 = MakeTexCode(
+            "assets/tex/chebyshev-trigo-with-samples.tex").scale(0.9).to_edge(LEFT)
+        self.play(FadeOut(pic1), ReplacementTransform(code1, code2))
+        self.next_slide()
+
+        pic2 = ImageMobject(
+            "assets/images/chebyshev-trigo-with-samples.png").scale(0.6)
+        self.play(FadeIn(pic2.to_edge(RIGHT)))
+        self.next_slide()
+
+        self.remove(code2)
         self.remove(refined_trigo)
-        self.remove(pic)
+        self.remove(pic2)
 
         poly_def = MathTex(
             "T_{n+1}(x)=2xT_n(x)-T_{n-1}(x),\\ T_0(x)=1,\\ T_1(x)=x")
@@ -468,9 +490,26 @@ class Plot3DGraphics(Slide):
         self.clear()
 
         code1 = MakeTexCode(
-            "assets/tex/tikz-3d-graphic.tex").scale(0.4).to_edge(LEFT)
+            "assets/tex/tikz-3d-graphic.tex").scale(0.7).to_edge(LEFT)
         obj1 = ImageMobject(
-            "assets/images/tikz-3d-graphic.png").scale(0.35).to_corner(DOWN + RIGHT)
+            "assets/images/tikz-3d-graphic.png").scale(0.3).to_edge(RIGHT)
+        self.play(Create(code1))
+        self.next_slide()
+        self.play(FadeIn(obj1))
+        self.next_slide()
+
+
+class PlotCommutativeDiagrams(Slide):
+    def construct(self):
+        title = Text("Commutative diagrams.")
+        self.play(Write(title))
+        self.next_slide()
+        self.clear()
+
+        code1 = MakeTexCode(
+            "assets/tex/tikz-commutative-diagram.tex").scale(0.6).to_edge(LEFT)
+        obj1 = ImageMobject(
+            "assets/images/tikz-commutative-diagram.png").scale(0.6).to_edge(RIGHT)
         self.play(Create(code1))
         self.next_slide()
         self.play(FadeIn(obj1))
