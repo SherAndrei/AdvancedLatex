@@ -1,0 +1,8 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}[domain=-1.1:1.1]
+  \draw plot function{ ((x+sqrt(x*x-1))**4+(x-sqrt(x*x-1))**4)/2 };
+\end{tikzpicture}
+\end{document}
