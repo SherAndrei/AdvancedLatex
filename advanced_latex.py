@@ -24,19 +24,20 @@ class Topics(Slide):
         self.play(Write(topic))
         self.next_slide()
 
-        b1 = Text("1. How to tex on your computer.").to_edge(
-            LEFT).shift(UP)
-        self.play(Write(b1))
+        self.play(Write(Text("1. How to tex on your computer.").to_edge(
+            LEFT).shift(UP)))
         self.next_slide()
 
-        b2 = Text("2. How to use cross references.").to_edge(
-            LEFT)
-        self.play(Write(b2))
+        self.play(Write(Text("2. How to use cross references.").to_edge(
+            LEFT)))
         self.next_slide()
 
-        b3 = Text("3. How to add graphics using tex.").to_edge(
-            LEFT).shift(DOWN)
-        self.play(Write(b3))
+        self.play(Write(Text("3. How to cite work of others using tex.").to_edge(
+            LEFT).shift(DOWN)))
+        self.next_slide()
+
+        self.play(Write(Text("4. How to add graphics using tex.").to_edge(
+            LEFT).shift(2 * DOWN)))
         self.next_slide()
 
 
@@ -64,7 +65,6 @@ class OverleafHate(Slide):
         subscribe = ImageMobject("assets/images/overleaf_subscribe.png")
         self.play(FadeOut(timeout_error, shift=UP),
                   FadeIn(subscribe, shift=UP))
-        self.next_slide()
 
 
 def MakeCommandLine(cmd):
@@ -136,7 +136,6 @@ using the Terminal:""").scale(0.5).next_to(
         ).scale(0.5).align_to(LEFT)
         steps.arrange(DOWN, center=False, aligned_edge=LEFT)
         self.play(Write(steps.shift(2 * LEFT)))
-        self.next_slide()
 
 
 def MakeTexCode(file_name, font_size=20):
@@ -185,7 +184,6 @@ class ReferenceSectionsAndChaptersIncorrectly(Slide):
 
         self.play(
             Indicate(code_after.submobjects[2][15][0:3], scale_factor=3, color=RED))
-        self.next_slide()
 
 
 class ReferenceSectionsAndChapters(Slide):
@@ -264,6 +262,131 @@ class ReferenceEquations(Slide):
         self.next_slide()
         self.play(Indicate(code.submobjects[2][7][17:17 + 30]))
         self.play(Indicate(code.submobjects[2][12][17:17 + 28]))
+
+
+class IntroductionToBiblatex(Slide):
+    def construct(self):
+        title = Text("How do we reference articles and books?").scale(0.9)
+        self.play(Write(title))
+        self.next_slide()
+
+        biblatex_intro = Text("Introduction to biblatex package.").scale(0.9)
+        self.play(ReplacementTransform(title, biblatex_intro))
+        self.next_slide()
+
+        self.play(biblatex_intro.animate.to_corner(UP + LEFT))
+        self.next_slide()
+
+        what_is_biblatex = Text("What is biblatex?").scale(0.8)
+        self.play(Create(what_is_biblatex))
+        self.next_slide()
+
+        self.play(what_is_biblatex.animate.to_edge(LEFT))
+        self.play(what_is_biblatex.animate.shift(2.5 * UP))
+        self.next_slide()
+        answer = Text(
+            "A bibliography management system.").scale(0.6)
+        self.play(Create(answer.to_edge(LEFT).shift(1.75 * UP)))
+        self.next_slide()
+
+        why_use_biblatex = Text("Why one should use biblatex?").scale(0.8)
+        self.play(Create(why_use_biblatex))
+        self.play(why_use_biblatex.animate.to_edge(LEFT))
+        self.play(why_use_biblatex.animate.shift(UP))
+        self.next_slide()
+
+        answer = Text(
+            "It simplifies citations in the main document.").scale(0.6)
+        self.play(Create(answer.to_edge(LEFT).shift(0.25 * UP)))
+        self.next_slide()
+        self.clear()
+
+        install_biblatex = MakeCommandLine(
+            "sudo apt install -y texlive-bibtex-extra biber")
+        install_biblatex.add(
+            Text("Install TikZ and necessities on Ubuntu:").scale(0.5).next_to(
+                install_biblatex, UP))
+        install_biblatex.add(
+            Text("On macOS and on Windows through their packet managers.").scale(0.5).next_to(
+                install_biblatex, DOWN))
+        self.play(Create(install_biblatex))
+
+
+class PhotometricStereo(Slide):
+    def construct(self):
+        title = Text("Photometric Stereo")
+        self.play(Write(title))
+        self.next_slide()
+        self.clear()
+
+        obj = ImageMobject("assets/images/biblatex-english.png").scale(1.3)
+        self.play(FadeIn(obj, shift=DOWN))
+        self.next_slide()
+
+        self.play(FadeOut(obj, shift=UP))
+        code = MakeTexCode(
+            "assets/tex/biblatex-english.tex").scale(0.75).to_corner(UP + LEFT)
+        self.play(Create(code))
+        self.next_slide()
+
+        run_latexmk = MakeCommandLine(
+            "latexmk -pdf assets/tex/biblatex-english.tex").scale(0.6).to_corner(DOWN + LEFT)
+        self.play(Create(run_latexmk))
+        self.next_slide()
+
+        self.play(Indicate(code.submobjects[2][2]))
+        self.next_slide()
+        self.play(Indicate(code.submobjects[2][3]))
+        self.next_slide()
+        self.play(Indicate(code.submobjects[2][11][38:38+15]))
+        self.next_slide()
+        self.play(Indicate(code.submobjects[2][13][52:52+16]))
+        self.next_slide()
+        self.play(Indicate(code.submobjects[2][15][67:67+13]))
+        self.next_slide()
+        self.play(Indicate(code.submobjects[2][17]))
+        self.next_slide()
+        self.play(FadeOut(code, shift=LEFT), FadeOut(run_latexmk, shift=LEFT))
+
+        bib_file = Code(
+            file_name="assets/tex/biblatex-english-refs.bib",
+            language="text",  # to disable eyewrecking highlighter
+            line_spacing=0.8,
+            background="window",
+            font_size=20,
+            tab_width=2,
+        ).scale(0.6)
+        self.play(FadeIn(bib_file))
+        self.next_slide()
+
+        self.play(Indicate(bib_file.submobjects[2][0][9:-1]))
+        self.next_slide()
+        self.play(Indicate(bib_file.submobjects[2][9][9:-1]))
+        self.next_slide()
+        self.play(Indicate(bib_file.submobjects[2][22][6:-1]))
+        self.next_slide()
+
+        self.clear()
+
+        self.play(FadeIn(code, shift=RIGHT))
+        self.next_slide()
+
+        gost_code = MakeTexCode(
+            "assets/tex/biblatex-english-gost.tex").scale(0.75).to_corner(UP + LEFT)
+        self.play(ReplacementTransform(code, gost_code))
+        self.next_slide()
+
+        run_latexmk = MakeCommandLine(
+            "latexmk -pdf assets/tex/biblatex-english-gost.tex").scale(0.6).to_corner(DOWN + LEFT)
+        self.play(FadeIn(run_latexmk, shift=RIGHT))
+        self.next_slide()
+        self.clear()
+
+        self.play(FadeOut(gost_code, shift=LEFT),
+                  FadeOut(run_latexmk, shift=LEFT))
+        gost_obj = ImageMobject(
+            "assets/images/biblatex-english-gost.png")
+        self.play(FadeIn(gost_obj, shift=DOWN))
 
 
 class IntroductionToTikz(Slide):
@@ -388,7 +511,6 @@ class EuclidsElements(Slide):
         self.next_slide()
         self.play(
             FadeIn(ImageMobject("assets/images/tikz-euclid.png").scale(0.6).shift(RIGHT)))
-        self.next_slide()
 
 
 class InstallGnuplot(Slide):
@@ -479,7 +601,6 @@ class ChebyshevPolynomials(Slide):
 
         pic = ImageMobject("assets/images/chebyshev-poly.png").scale(0.4)
         self.play(FadeIn(pic.to_corner((DOWN + RIGHT))))
-        self.next_slide()
 
 
 class Plot3DGraphics(Slide):
@@ -496,7 +617,6 @@ class Plot3DGraphics(Slide):
         self.play(Create(code1))
         self.next_slide()
         self.play(FadeIn(obj1))
-        self.next_slide()
 
 
 class PlotCommutativeDiagrams(Slide):
@@ -513,12 +633,8 @@ class PlotCommutativeDiagrams(Slide):
         self.play(Create(code1))
         self.next_slide()
         self.play(FadeIn(obj1))
-        self.next_slide()
 
 
 class Ending(Slide):
     def construct(self):
-        self.next_slide()
-        title = Text("Thank you for your attention!")
-        self.play(Write(title))
-        self.next_slide()
+        self.play(Write(Text("Thank you for your attention!")))

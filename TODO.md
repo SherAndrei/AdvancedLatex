@@ -6,6 +6,7 @@ is to teach advanced techniques, tips and tricks of latex
 today we'll discuss
 * Why do we want to use tex on our computer and hot to do it
 * How to use cross references in your work
+* How to manage your references page
 * we'll talk about how to create precise graphics and images using tex
 
 As you all may remember the first presentation of our collegues
@@ -24,12 +25,37 @@ What if we do not have any money?
 Install latexmk. Here is how you can do it on linux, macos and windows, easy.
 Further in the presentation i'll show you how to use it in bottom left corner.
 
+добавить про автоматический сбор содержимого
+
+
 Let's discuss how do we reference different parts of our paper throughout
 document. Here is the piece of latex written by beginner user of latex, let's investigate it. In this example author in last section references
 the first subsection of the first section by writin reference explicitly.
 Author decides to add another subsection to first section right before
 the existing one. As you can see author forgot to change their explicitly
 stated reference, thus resulting in logical error in the document. How we can fix it?
+Here is some examples of referencing using tex.
+
+Next question is how do we reference other articles and books? Often by hand or by copying a reference from wikipedia. Let me show you how to do it properly in Latex.
+
+* Biblatex is a sophisticated bibliography management system
+* By storing references in plain text .bib files and associating each with a unique key, it simplifies citations in the main LaTeX document.
+
+We'll consider an example from my term paper. Main theme of the paper is the Photometric Stereo,
+a one of many computer vision algorithms. Looks neat, right?
+Let's learn how to create references like these. 
+Here is the code that will generate into the precious document. 
+We'll in a moment what is bib file. All of the generated references
+are used by specifying a unique identificator in `\cite` clause.
+All of the references are printed using one line `\printbibliograpy`.
+
+Here is associated bibliography file mentioned earlier. As you can see here
+is our identificators, and other additional information.
+
+Let's rewind to the original document. As you can see here the order of
+references is reversed. We can change that manually, or use an extention
+that will allow us to specify references according to GOST standard.
+By changing only one line we can achieve required results.
 
 How do we add graphics to our documents? Again, our collegues
 suggested to use includegraphics environment. This means that our
@@ -65,7 +91,7 @@ We can change it by specifying how much samples we want.
 
 Also the Chebyshev polynomials of the first kind are obtained from the recurrence relation. This relation has an exact solution.
 
-As an example let's plot chebyshev polynomial of 4th degree
+As an example let's plot chebyshev polynomial of 4th degree.
 
-And of course TikZ package can handle 3d plotting.
+And of course TikZ package can handle 3d plotting. And commutative diagrams.
 
