@@ -280,23 +280,20 @@ class IntroductionToBiblatex(Slide):
         self.play(Create(what_is_biblatex))
         self.next_slide()
 
-        self.play(what_is_biblatex.animate.to_edge(LEFT))
-        self.play(what_is_biblatex.animate.shift(2.5 * UP))
+        self.play(what_is_biblatex.animate.to_edge(LEFT).shift(2.5 * UP))
         self.next_slide()
-        answer = Text(
-            "A bibliography management system.").scale(0.6)
-        self.play(Create(answer.to_edge(LEFT).shift(1.75 * UP)))
+        answer = Text("• A bibliography management system.").scale(0.8)
+        self.play(Create(answer.to_edge(LEFT).shift(1.75 * UP + RIGHT)))
         self.next_slide()
 
         why_use_biblatex = Text("Why one should use biblatex?").scale(0.8)
         self.play(Create(why_use_biblatex))
-        self.play(why_use_biblatex.animate.to_edge(LEFT))
-        self.play(why_use_biblatex.animate.shift(UP))
+        self.play(why_use_biblatex.animate.to_edge(LEFT).shift(UP))
         self.next_slide()
 
         answer = Text(
-            "It simplifies citations in the main document.").scale(0.6)
-        self.play(Create(answer.to_edge(LEFT).shift(0.25 * UP)))
+            "• It simplifies citations in the main document.").scale(0.8)
+        self.play(Create(answer.to_edge(LEFT).shift(0.25 * UP + RIGHT)))
         self.next_slide()
         self.clear()
 
@@ -399,7 +396,7 @@ class IntroductionToTikz(Slide):
         self.next_slide()
 
         tikz_intro = Text("Introduction to TikZ package.")
-        self.play(FadeOut(include_graphics, shift=LEFT), Create(tikz_intro))
+        self.play(FadeOut(include_graphics, shift=RIGHT), Create(tikz_intro))
         self.next_slide()
 
         self.play(tikz_intro.animate.to_corner(UP + LEFT))
@@ -409,20 +406,19 @@ class IntroductionToTikz(Slide):
         self.play(Create(what_is_tikz))
         self.next_slide()
 
-        self.play(what_is_tikz.animate.to_edge(LEFT))
-        self.play(what_is_tikz.animate.shift(2.5 * UP))
+        self.play(what_is_tikz.animate.shift(2.5 * UP).to_edge(LEFT))
         self.next_slide()
         answers = VGroup(
             Text(
-                """1. A LaTeX package for graphics language
-with a manual of over a thousand pages."""),
+                """1. A LaTeX package for graphics language with a manual of
+over a thousand pages."""),
             Text(
-                """2. A number of slowly-paced tutorials that
-will teach you almost all you should know about TikZ.""")
+                """2. A number of slowly-paced tutorials that will teach you
+almost all you should know about TikZ.""")
         ).scale(0.6).align_to(LEFT)
+        answers.set_y(what_is_tikz.get_y() - 1)
         answers.arrange(DOWN, center=False, aligned_edge=LEFT)
-
-        self.play(Create(answers.next_to(what_is_tikz, DOWN).shift(4 * RIGHT)))
+        self.play(Create(answers))
         self.next_slide()
 
         why_use_tikz = Text("Why one should use TikZ?").next_to(
@@ -440,8 +436,9 @@ just as you “program” your document when you use LaTeX."""),
                 """2. It allows quick creation of simple graphics,
 provides precise positioning, allows the use of macros, etc, etc.""")
         ).scale(0.6).align_to(LEFT)
+        answers.set_y(why_use_tikz.get_y() - 1)
         answers.arrange(DOWN, center=False, aligned_edge=LEFT)
-        self.play(Create(answers.to_edge(LEFT).shift(1.5 * DOWN)))
+        self.play(Create(answers))
 
         self.next_slide()
         self.clear()
