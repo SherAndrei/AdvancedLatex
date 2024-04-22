@@ -72,7 +72,6 @@ def MakeCommandLine(cmd):
         code=cmd,
         language="console", line_spacing=0.8,
         style="native",
-        background="rectange",
         font_size=20
     )
 
@@ -391,7 +390,7 @@ class PhotometricStereo(Slide):
 
 class IntroductionToTikz(Slide):
     def construct(self):
-        title = Text("How do we add grapics to documents?")
+        title = Text("How do we add graphics to documents?")
         self.play(Write(title))
         self.next_slide()
 
